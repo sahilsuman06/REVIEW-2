@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Rental System</title>
+    <link rel="stylesheet" href="review2.css"> 
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bike Rental System</h1>
+    <div class="container">
+        <form id="bikeForm">
+            <div class="form-group">
+                <label for="action">Select Action:</label>
+                <select id="action" name="action">
+                    <option value="view">View Available Bikes</option>
+                    <option value="rent">Rent a Bike</option>
+                    <option value="return">Return a Bike</option>
+                </select>
+            </div>
+            <div class="form-group" id="bikeIdGroup" style="display: none;">
+                <label for="bikeId">Bike ID:</label>
+                <input type="text" id="bikeId" name="bikeId" placeholder="Enter Bike ID">
+            </div>
+            <button type="button" onclick="handleAction()">Submit</button>
+        </form>
+        <div class="output" id="output">
+            <!-- Output will appear here -->
+        </div>
+    </div>
+
+    <script>
+        const bikeIdGroup = document.getElementById('bikeIdGroup');
+        const actionSelect = document.getElementById('action');
+        const outputDiv = document.getElementById('output');
+
+        actionSelect.addEventListener('change', function () {
+            if (this.value === 'rent' || this.value === 'return') {
+                bikeIdGroup.style.display = 'block';
+            } else {
+                bikeIdGroup.style.display = 'none';
+            }
+        });
+
+        function handleAction() {
+            const action = document.getElementById('action').value;
+            const bikeId = document.getElementById('bikeId').value;
+
+            let message = '';
+            switch (action) {
+                case 'view':
+                    message = 'Displaying available bikes...';
+                    break;
+                case 'rent':
+                    if (bikeId) {
+                        message = `Renting bike with ID: ${bikeId}`;
+                    } else {
+                        message = 'Please enter a Bike ID to rent.';
+                    }
+                    break;
+                case 'return':
+                    if (bikeId) {
+                        message = `Returning bike with ID: ${bikeId}`;
+                    } else {
+                        message = 'Please enter a Bike ID to return.';
+                    }
+                    break;
+                default:
+                    message = 'Invalid action selected.';
+            }
+            outputDiv.textContent = message;
+        }
+    </script>
+    <script src="review2.js"></script>
+</body>
+</html>
